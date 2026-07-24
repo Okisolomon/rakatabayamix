@@ -1,12 +1,20 @@
+import os
 from pathlib import Path
+
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-rakatabayamix-development-key'
+# Secret key
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-rakatabayamix-development-key"
+)
 
-# Set to False for production (Render)
-DEBUG = False
+# Debug
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
+# Allowed hosts
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
@@ -26,6 +34,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,10 +63,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'rakatabayamix.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 LANGUAGE_CODE = 'en-us'
@@ -70,10 +80,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Folder where Render will collect static files
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise static file storage
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
