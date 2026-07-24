@@ -1,0 +1,467 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rakatabayamix Studios</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #0b0b0f; color: white; }
+        header { background: #111119; padding: 18px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #242430; }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    background: white;
+    padding: 2px;
+    border-radius: 8px;
+}
+
+        .logo { margin: 0; font-size: 28px; font-weight: 900; text-transform: uppercase; color: white; line-height: 1; }
+        .logo span { color: #f5b942; }
+        .logo small { display: block; font-size: 11px; letter-spacing: 4px; color: #bfbfbf; margin-top: 4px; }
+
+        nav a { color: white; margin-left: 18px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        nav a:hover { color: #f5b942; }
+
+        .hero {
+            min-height: 82vh;
+            padding: 90px 8%;
+            background: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.9)),
+            url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-inner { max-width: 860px; }
+        .tag { color: #f5b942; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; }
+        .hero h1 { font-size: 58px; max-width: 820px; line-height: 1.05; margin: 15px 0; }
+        .gold, section h2, .price { color: #f5b942; }
+        .hero p { font-size: 20px; max-width: 650px; color: #ddd; line-height: 1.6; }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 22px;
+            margin: 10px 10px 0 0;
+            background: #f5b942;
+            color: #111;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn.dark { background: transparent; color: white; border: 1px solid #f5b942; }
+        .btn:hover { opacity: 0.86; }
+
+        section { padding: 65px 8%; }
+        section h2 { font-size: 34px; margin-top: 0; }
+
+        .section-note { color: #cfcfcf; max-width: 720px; line-height: 1.6; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #171720;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #2a2a35;
+        }
+
+        .card h3 { margin-top: 0; }
+        .card p { color: #cfcfcf; line-height: 1.5; }
+        .price { font-weight: bold; font-size: 20px; }
+
+        audio {
+            width: 100%;
+            margin: 12px 0;
+        }
+
+        .steps {
+            background: #101018;
+            border-top: 1px solid #242430;
+            border-bottom: 1px solid #242430;
+        }
+
+        .bank {
+            background: #111119;
+            border-left: 4px solid #f5b942;
+        }
+
+        .form-tabs {
+            margin-top: 35px;
+            background: #111119;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #2a2a35;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: none;
+            padding: 14px 20px;
+            border-radius: 6px;
+            background: #252532;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background: #f5b942;
+            color: #111;
+        }
+
+        .form-panel { display: none; }
+        .form-panel.active { display: block; }
+
+        form p { margin-bottom: 16px; }
+
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            color: #f5b942;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px;
+            border-radius: 6px;
+            border: 1px solid #333344;
+            background: #0b0b0f;
+            color: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #f5b942;
+        }
+
+        .notice {
+            background: #0b0b0f;
+            border: 1px solid #333344;
+            padding: 16px;
+            border-radius: 6px;
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            background: #25d366;
+            color: white;
+            padding: 14px 18px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 50;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+
+        .whatsapp-float:hover {
+            opacity: 0.9;
+            color: white;
+        }
+
+        a { color: #f5b942; }
+
+        footer {
+            padding: 30px 8%;
+            text-align: center;
+            background: #07070a;
+            color: #aaa;
+        }
+
+        @media (max-width: 800px) {
+            header { display: block; }
+            .brand { margin-bottom: 16px; }
+            nav { margin-top: 18px; }
+            nav a { display: inline-block; margin: 0 12px 12px 0; }
+            .hero { min-height: auto; padding: 70px 8%; }
+            .hero h1 { font-size: 40px; }
+            .hero p { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand">
+        <img src="{% static 'studio/images/logo.png' %}" alt="Rakatabayamix Studios Logo">
+
+        <h2 class="logo">
+            Rakata<span>baya</span>mix
+            <small>STUDIOS</small>
+        </h2>
+    </div>
+
+    <nav>
+        <a href="#beats">Beats</a>
+        <a href="#booking">Book Studio</a>
+        <a href="#works">Published Works</a>
+        <a href="#payment-upload">Upload Payment</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <div class="hero-inner">
+        <div class="tag"></div>
+        <h1>Welcome To <span class="gold">Rakatabayamix Studios</span></h1>
+        <p>
+            Recording, mixing, mastering, full production, beat sales, and published works
+            with a clean professional sound.
+        </p>
+
+        <a class="btn" href="#booking">Book Studio Session</a>
+        <a class="btn dark" href="#beats">Buy Beats</a>
+    </div>
+</div>
+
+<section id="booking">
+    <h2>Book A Studio Session</h2>
+    <p class="section-note">Choose the service you need, make payment by bank transfer, then upload proof of payment through the form below.</p>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Recording</h3>
+            <p>Professional vocal recording session.</p>
+            <p class="price">₦100,000</p>
+            <button class="btn" type="button" onclick="openBookingForm('Recording')">Book This Service</button>
+        </div>
+
+        <div class="card">
+            <h3>Mixing</h3>
+            <p>Clean and professional mixing for your song.</p>
+            <p class="price">₦200,000</p>
+            <button class="btn" type="button" onclick="openBookingForm('Mixing')">Book This Service</button>
+        </div>
+
+        <div class="card">
+            <h3>Mastering</h3>
+            <p>Final polish, loudness, and release-ready sound.</p>
+            <p class="price">₦100,000</p>
+            <button class="btn" type="button" onclick="openBookingForm('Mastering')">Book This Service</button>
+        </div>
+
+        <div class="card">
+            <h3>Full Production</h3>
+            <p>Beat production, recording, mixing, and mastering.</p>
+            <p class="price">₦400,000</p>
+            <button class="btn" type="button" onclick="openBookingForm('Full Production')">Book This Service</button>
+        </div>
+    </div>
+</section>
+
+<section id="beats">
+    <h2>Buy Beats</h2>
+    <p class="section-note">Listen to demos, pick the beat you want, make transfer, and upload your proof of payment.</p>
+
+    <div class="grid">
+        <div class="card">
+            <h3>SADE</h3>
+            <p>Genre: Afro</p>
+            <audio controls>
+                <source src="{% static 'studio/audio/sade.mp3' %}" type="audio/mpeg">
+            </audio>
+            <p class="price">₦100,000</p>
+            <button class="btn" type="button" onclick="openBeatForm('SADE')">Buy This Beat</button>
+        </div>
+
+        <div class="card">
+            <h3>Hold Me</h3>
+            <p>Genre: Afro</p>
+            <audio controls>
+                <source src="{% static 'studio/audio/hold-me.mp3' %}" type="audio/mpeg">
+            </audio>
+            <p class="price">₦100,000</p>
+            <button class="btn" type="button" onclick="openBeatForm('Hold me')">Buy This Beat</button>
+        </div>
+
+        <div class="card">
+            <h3>Settings</h3>
+            <p>Genre: Private School</p>
+            <audio controls>
+                <source src="{% static 'studio/audio/settings.mp3' %}" type="audio/mpeg">
+            </audio>
+            <p class="price">₦150,000</p>
+            <button class="btn" type="button" onclick="openBeatForm('Settings')">Buy This Beat</button>
+        </div>
+    </div>
+</section>
+
+<section class="steps">
+    <h2>How Payment Works</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>1. Choose</h3>
+            <p>Select a studio service or beat you want to buy.</p>
+        </div>
+
+        <div class="card">
+            <h3>2. Transfer</h3>
+            <p>Make payment to the UBA account listed below.</p>
+        </div>
+
+        <div class="card">
+            <h3>3. Upload Proof</h3>
+            <p>Fill the form and upload your payment receipt or screenshot.</p>
+        </div>
+    </div>
+</section>
+
+<section id="works">
+    <h2>Published Works</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Sapa Dey</h3>
+            <p>Artist: Ovuemax</p>
+            <a class="btn" href="https://open.spotify.com/track/32T4RQpZAOQnWPJL7xjypc" target="_blank">Listen On Spotify</a>
+        </div>
+
+        <div class="card">
+            <h3>Hell n Back</h3>
+            <p>Artist: Flyboiotk</p>
+            <a class="btn" href="https://open.spotify.com/track/5gQjpjDfMmcI4uoirFYSwK" target="_blank">Listen On Spotify</a>
+        </div>
+
+        <div class="card">
+            <h3>All Night</h3>
+            <p>Artist: Hypewizardsheilz</p>
+            <a class="btn" href="https://open.spotify.com/track/7volcJTx4s1slLanLkEyUT" target="_blank">Listen On Spotify</a>
+        </div>
+    </div>
+</section>
+
+<section class="bank">
+    <h2>Payment By Bank Transfer</h2>
+    <p><strong>Bank Name:</strong> UBA</p>
+    <p><strong>Account Name:</strong> Oki Solomon</p>
+    <p><strong>Account Number:</strong> 2196678861</p>
+    <p>After payment, upload proof of payment below.</p>
+</section>
+
+<section id="payment-upload">
+    <h2>Submit Booking Or Beat Payment</h2>
+
+    <div class="form-tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="booking" type="button" onclick="showTab('bookingForm', this)">
+                Studio Booking
+            </button>
+
+            <button class="tab-btn" data-tab="beat" type="button" onclick="showTab('beatForm', this)">
+                Beat Purchase
+            </button>
+        </div>
+
+        <div class="notice">
+            All fields are required. After submitting, Rakatabayamix Studios will confirm your payment and contact you.
+        </div>
+
+        <div id="bookingForm" class="form-panel active">
+            <h3>Studio Booking Form</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="booking">
+                {{ booking_form.as_p }}
+                <button class="btn" type="submit">Submit Studio Booking</button>
+            </form>
+        </div>
+
+        <div id="beatForm" class="form-panel">
+            <h3>Beat Purchase Form</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="beat">
+                {{ beat_form.as_p }}
+                <button class="btn" type="submit">Submit Beat Purchase</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Rakatabayamix Studios</h2>
+    <p><strong>Location:</strong> Ibadan / Lagos</p>
+    <p><strong>WhatsApp:</strong> 08146742635</p>
+    <p><strong>Email:</strong> soloteededirector@gmail.com</p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/rakatabaya_" target="_blank">rakatabaya_</a></p>
+    <p><strong>TikTok:</strong> <a href="https://www.tiktok.com/@solotee_de_director" target="_blank">@solotee_de_director</a></p>
+    <p><strong>YouTube:</strong> <a href="https://youtube.com/@soloteededirector" target="_blank">@soloteededirector</a></p>
+</section>
+
+<footer>
+    <p>© 2026 Rakatabayamix Studios. All rights reserved.</p>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/2348146742635" target="_blank">
+    WhatsApp
+</a>
+
+<script>
+    function showTab(panelId, button) {
+        const panels = document.querySelectorAll('.form-panel');
+        const buttons = document.querySelectorAll('.tab-btn');
+
+        panels.forEach(panel => panel.classList.remove('active'));
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        document.getElementById(panelId).classList.add('active');
+        button.classList.add('active');
+    }
+
+    function openBookingForm(serviceName) {
+        const bookingButton = document.querySelector('[data-tab="booking"]');
+        showTab('bookingForm', bookingButton);
+
+        const serviceSelect = document.querySelector('select[name="service"]');
+        if (serviceSelect && serviceName) {
+            serviceSelect.value = serviceName;
+        }
+
+        document.getElementById('payment-upload').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openBeatForm(beatName) {
+        const beatButton = document.querySelector('[data-tab="beat"]');
+        showTab('beatForm', beatButton);
+
+        const beatSelect = document.querySelector('select[name="beat"]');
+        if (beatSelect && beatName) {
+            beatSelect.value = beatName;
+        }
+
+        document.getElementById('payment-upload').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

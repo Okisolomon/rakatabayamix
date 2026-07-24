@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Django
+db.sqlite3
+
+# Media uploads (optional - don't upload customer uploads)
+media/
+
+# Static collection
+staticfiles/
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# Windows
+Thumbs.db
+Desktop.ini
