@@ -5,16 +5,14 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Secret key
+# SECURITY
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-insecure-rakatabayamix-development-key"
 )
 
-# Debug
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-# Allowed hosts
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
