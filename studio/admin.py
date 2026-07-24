@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.utils.html import format_html
-
 from .models import StudioBooking, BeatPurchase
 
 
@@ -15,7 +14,7 @@ class StudioBookingAdmin(admin.ModelAdmin):
         'preferred_date',
         'preferred_time',
         'status',
-        'payment_proof_link',
+        'payment_proof_preview',
         'created_at',
     )
 
@@ -39,22 +38,24 @@ class StudioBookingAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         'created_at',
-        'payment_proof_link',
+        'payment_proof_preview',
     )
 
     ordering = (
         '-created_at',
     )
 
-    def payment_proof_link(self, obj):
+    def payment_proof_preview(self, obj):
         if obj.proof_of_payment:
             return format_html(
-                '<a href="{}" target="_blank">View Proof</a>',
+                '<a href="{0}" target="_blank">'
+                '<img src="{0}" width="120" style="border-radius:6px;border:1px solid #ccc;" />'
+                '</a>',
                 obj.proof_of_payment.url
             )
         return "No proof uploaded"
 
-    payment_proof_link.short_description = "Payment Proof"
+    payment_proof_preview.short_description = "Payment Proof"
 
 
 @admin.register(BeatPurchase)
@@ -66,7 +67,7 @@ class BeatPurchaseAdmin(admin.ModelAdmin):
         'email',
         'beat',
         'status',
-        'payment_proof_link',
+        'payment_proof_preview',
         'created_at',
     )
 
@@ -88,19 +89,21 @@ class BeatPurchaseAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         'created_at',
-        'payment_proof_link',
+        'payment_proof_preview',
     )
 
     ordering = (
         '-created_at',
     )
 
-    def payment_proof_link(self, obj):
+    def payment_proof_preview(self, obj):
         if obj.proof_of_payment:
             return format_html(
-                '<a href="{}" target="_blank">View Proof</a>',
+                '<a href="{0}" target="_blank">'
+                '<img src="{0}" width="120" style="border-radius:6px;border:1px solid #ccc;" />'
+                '</a>',
                 obj.proof_of_payment.url
             )
         return "No proof uploaded"
 
-    payment_proof_link.short_description = "Payment Proof"
+    payment_proof_preview.short_description = "Payment Proof"
